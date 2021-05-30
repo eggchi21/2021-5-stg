@@ -217,46 +217,6 @@ class Fighter extends SpriteActor {
 /**
  * うずまき弾幕
  */
-// class Enemy extends SpriteActor {
-//     constructor(x, y) {
-//         const sprite = new Sprite(assets.get('sprite'), new Rectangle(16, 0, 16, 16));
-//         const hitArea = new Rectangle(0, 0, 16, 16);
-//         super(x, y, sprite, hitArea, ['enemy']);
-
-//         this.maxHp = 50;
-//         this.currentHp = this.maxHp;
-
-//         this._interval = 500;
-//         this._timeCount = this._interval;
-
-//         // プレイヤーの弾に当たったらHPを減らす
-//         this.addEventListener('hit', (e) => {
-//             if (e.target.hasTag('playerBullet')) {
-//                 this.currentHp--;
-//                 this.dispatchEvent('changehp', new GameEvent(this));
-//             }
-//         });
-//     }
-
-//     update(gameInfo, input) {
-//         // インターバルを経過していたら弾を撃つ
-//         this._timeCount++;
-//         if (this._timeCount > this._interval) {
-//             const spawner = new SpiralBulletsSpawner(this.x, this.y, 4);
-//             this.spawnActor(spawner);
-//             this._timeCount = 0;
-//         }
-
-//         // HPがゼロになったらdestroyする
-//         if (this.currentHp <= 0) {
-//             this.destroy();
-//         }
-//     }
-// }
-
-/**
- * 花火弾幕
- */
 class Enemy extends SpriteActor {
     constructor(x, y) {
         const sprite = new Sprite(assets.get('sprite'), new Rectangle(16, 0, 16, 16));
@@ -266,8 +226,8 @@ class Enemy extends SpriteActor {
         this.maxHp = 50;
         this.currentHp = this.maxHp;
 
-        this._interval = 100;
-        this._timeCount = 0;
+        this._interval = 500;
+        this._timeCount = this._interval;
 
         // プレイヤーの弾に当たったらHPを減らす
         this.addEventListener('hit', (e) => {
@@ -282,11 +242,8 @@ class Enemy extends SpriteActor {
         // インターバルを経過していたら弾を撃つ
         this._timeCount++;
         if (this._timeCount > this._interval) {
-            const spdX = Math.random() * 4 - 2; // -2〜+2
-            const spdY = Math.random() * 4 - 2;
-            const explosionTime = 50;
-            const bullet = new FireworksBullet(this.x, this.y, spdX, spdY, explosionTime);
-            this.spawnActor(bullet);
+            const spawner = new SpiralBulletsSpawner(this.x, this.y, 4);
+            this.spawnActor(spawner);
             this._timeCount = 0;
         }
 
@@ -296,6 +253,49 @@ class Enemy extends SpriteActor {
         }
     }
 }
+
+/**
+ * 花火弾幕
+ */
+// class Enemy extends SpriteActor {
+//     constructor(x, y) {
+//         const sprite = new Sprite(assets.get('sprite'), new Rectangle(16, 0, 16, 16));
+//         const hitArea = new Rectangle(0, 0, 16, 16);
+//         super(x, y, sprite, hitArea, ['enemy']);
+
+//         this.maxHp = 50;
+//         this.currentHp = this.maxHp;
+
+//         this._interval = 100;
+//         this._timeCount = 0;
+
+//         // プレイヤーの弾に当たったらHPを減らす
+//         this.addEventListener('hit', (e) => {
+//             if (e.target.hasTag('playerBullet')) {
+//                 this.currentHp--;
+//                 this.dispatchEvent('changehp', new GameEvent(this));
+//             }
+//         });
+//     }
+
+//     update(gameInfo, input) {
+//         // インターバルを経過していたら弾を撃つ
+//         this._timeCount++;
+//         if (this._timeCount > this._interval) {
+//             const spdX = Math.random() * 4 - 2; // -2〜+2
+//             const spdY = Math.random() * 4 - 2;
+//             const explosionTime = 50;
+//             const bullet = new FireworksBullet(this.x, this.y, spdX, spdY, explosionTime);
+//             this.spawnActor(bullet);
+//             this._timeCount = 0;
+//         }
+
+//         // HPがゼロになったらdestroyする
+//         if (this.currentHp <= 0) {
+//             this.destroy();
+//         }
+//     }
+// }
 
 /**
  * デフォルト/回転弾幕/花火弾幕共通
