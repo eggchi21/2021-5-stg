@@ -491,7 +491,7 @@ class DanmakuStgTitleScene extends Scene {
     }
 }
 
-class DanamkuStgGame extends Game {
+class DanmakuStgGame extends Game {
     constructor() {
         super('弾幕STG', 300, 400, 60);
         const titleScene = new DanmakuStgTitleScene(this.screenCanvas);
@@ -501,7 +501,7 @@ class DanamkuStgGame extends Game {
 
 assets.addImage('sprite', 'sprite.png');
 assets.loadAll().then((a) => {
-    const game = new DanamkuStgGame();
+    const game = new DanmakuStgGame();
     document.body.appendChild(game.screenCanvas);
     game.start();
 });
