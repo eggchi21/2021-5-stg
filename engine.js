@@ -119,7 +119,7 @@ class Actor extends EventDispatcher {
     }
 
     spawnActor(actor) {
-        this.dispatchEvent('spawnactor', new GameEvent(actor));
+        this.dispatchEvent('spawnActor', new GameEvent(actor));
     }
 
     destroy() {
@@ -259,7 +259,7 @@ class Scene extends EventDispatcher {
 
     add(actor) {
         this.actors.push(actor);
-        actor.addEventListener('spawnactor', (e) => this.add(e.target));
+        actor.addEventListener('spawnActor', (e) => this.add(e.target));
         actor.addEventListener('destroy', (e) => this._addDestroyedActor(e.target));
     }
 
@@ -270,7 +270,7 @@ class Scene extends EventDispatcher {
 
     changeScene(newScene) {
         const event = new GameEvent(newScene);
-        this.dispatchEvent('changescene', event);
+        this.dispatchEvent('changeScene', event);
     }
 
     update(gameInfo, input) {
@@ -357,7 +357,7 @@ class Game {
 
     changeScene(newScene) {
         this.currentScene = newScene;
-        this.currentScene.addEventListener('changescene', (e) => this.changeScene(e.target));
+        this.currentScene.addEventListener('changeScene', (e) => this.changeScene(e.target));
         console.log(`シーンが${newScene.name}に切り替わりました。`);
     }
 
