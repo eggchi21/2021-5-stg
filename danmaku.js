@@ -327,7 +327,7 @@ class FireworksBullet extends EnemyBullet {
     constructor(x, y, velocityX, velocityY, explosionTime) {
         super(x, y, velocityX, velocityY);
 
-        this._eplasedTime = 0;
+        this._elapsedTime = 0;
         this.explosionTime = explosionTime;
     }
 
@@ -353,10 +353,10 @@ class FireworksBullet extends EnemyBullet {
         super.update(gameInfo, input);
 
         // 経過時間を記録する
-        this._eplasedTime++;
+        this._elapsedTime++;
 
         // 爆発時間を超えたら弾を生成して自身を破棄する
-        if (this._eplasedTime > this.explosionTime) {
+        if (this._elapsedTime > this.explosionTime) {
             this.shootCircularBullets(10, 2);
             this.destroy();
         }
@@ -438,7 +438,7 @@ class EnemyHpBar extends Actor {
 class DanmakuStgEndScene extends Scene {
     constructor(renderingTarget) {
         super('クリア', 'black', renderingTarget);
-        const text = new TextLabel(60, 200, 'ゲームクリア！');
+        const text = new TextLabel(60, 200, 'ゲームクリア');
         this.add(text);
     }
 }
@@ -446,7 +446,7 @@ class DanmakuStgEndScene extends Scene {
 class DanmakuStgGameOverScene extends Scene {
     constructor(renderingTarget) {
         super('ゲームオーバー', 'black', renderingTarget);
-        const text = new TextLabel(50, 200, 'ゲームオーバー…');
+        const text = new TextLabel(50, 200, 'ゲームオーバー');
         this.add(text);
     }
 }
@@ -478,7 +478,7 @@ class DanmakuStgMainScene extends Scene {
 class DanmakuStgTitleScene extends Scene {
     constructor(renderingTarget) {
         super('タイトル', 'black', renderingTarget);
-        const title = new TextLabel(100, 200, '弾幕STG');
+        const title = new TextLabel(100, 200, 'STG');
         this.add(title);
     }
 
