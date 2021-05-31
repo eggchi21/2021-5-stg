@@ -112,7 +112,7 @@ class Fighter extends SpriteActor {
 //         this.addEventListener('hit', (e) => {
 //             if (e.target.hasTag('playerBullet')) {
 //                 this.currentHp--;
-//                 this.dispatchEvent('changehp', new GameEvent(this));
+//                 this.dispatchEvent('changeHp', new GameEvent(this));
 //             }
 //         });
 //     }
@@ -174,7 +174,7 @@ class Fighter extends SpriteActor {
 //         this.addEventListener('hit', (e) => {
 //             if (e.target.hasTag('playerBullet')) {
 //                 this.currentHp--;
-//                 this.dispatchEvent('changehp', new GameEvent(this));
+//                 this.dispatchEvent('changeHp', new GameEvent(this));
 //             }
 //         });
 //     }
@@ -233,7 +233,7 @@ class Enemy extends SpriteActor {
         this.addEventListener('hit', (e) => {
             if (e.target.hasTag('playerBullet')) {
                 this.currentHp--;
-                this.dispatchEvent('changehp', new GameEvent(this));
+                this.dispatchEvent('changeHp', new GameEvent(this));
             }
         });
     }
@@ -273,7 +273,7 @@ class Enemy extends SpriteActor {
 //         this.addEventListener('hit', (e) => {
 //             if (e.target.hasTag('playerBullet')) {
 //                 this.currentHp--;
-//                 this.dispatchEvent('changehp', new GameEvent(this));
+//                 this.dispatchEvent('changeHp', new GameEvent(this));
 //             }
 //         });
 //     }
@@ -418,7 +418,7 @@ class EnemyHpBar extends Actor {
         this._innerWidth = this._width;
 
         // 敵のHPが変わったら内側の長さを変更する
-        enemy.addEventListener('changehp', (e) => {
+        enemy.addEventListener('changeHp', (e) => {
             const maxHp = e.target.maxHp;
             const hp = e.target.currentHp;
             this._innerWidth = this._width * (hp / maxHp);
@@ -437,23 +437,39 @@ class EnemyHpBar extends Actor {
 
 class DanmakuStgEndScene extends Scene {
     constructor(renderingTarget) {
-        super('クリア', 'black', renderingTarget);
+        super('クリア', 'green', renderingTarget);
         const text = new TextLabel(60, 200, 'ゲームクリア');
         this.add(text);
+    }
+
+    update(gameInfo, input) {
+        super.update(gameInfo, input);
+        if (input.getKeyDown(' ')) {
+            const mainScene = new DanmakuStgMainScene(this.renderingTarget);
+            this.changeScene(mainScene);
+        }
     }
 }
 
 class DanmakuStgGameOverScene extends Scene {
     constructor(renderingTarget) {
-        super('ゲームオーバー', 'black', renderingTarget);
+        super('ゲームオーバー', 'green', renderingTarget);
         const text = new TextLabel(50, 200, 'ゲームオーバー');
         this.add(text);
+    }
+
+    update(gameInfo, input) {
+        super.update(gameInfo, input);
+        if (input.getKeyDown(' ')) {
+            const mainScene = new DanmakuStgMainScene(this.renderingTarget);
+            this.changeScene(mainScene);
+        }
     }
 }
 
 class DanmakuStgMainScene extends Scene {
     constructor(renderingTarget) {
-        super('メイン', 'black', renderingTarget);
+        super('メイン', 'green', renderingTarget);
         const fighter = new Fighter(150, 300);
         const enemy = new Enemy(150, 100);
         const hpBar = new EnemyHpBar(50, 20, enemy);
@@ -477,7 +493,7 @@ class DanmakuStgMainScene extends Scene {
 
 class DanmakuStgTitleScene extends Scene {
     constructor(renderingTarget) {
-        super('タイトル', 'black', renderingTarget);
+        super('タイトル', 'green', renderingTarget);
         const title = new TextLabel(100, 200, 'STG');
         this.add(title);
     }

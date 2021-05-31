@@ -378,8 +378,12 @@ class Game {
         this.currentFps = 1 / elapsedSec;
 
         const screenRectangle = new Rectangle(0, 0, this.width, this.height);
-        const info = new GameInformation(this.title, screenRectangle,
-            this.maxFps, this.currentFps);
+        const info = new GameInformation(
+            this.title,
+            screenRectangle,
+            this.maxFps,
+            this.currentFps
+        );
         const input = this._inputReceiver.getInput();
         this.currentScene.update(info, input);
 
